@@ -635,8 +635,12 @@ def register_like(op: OpType) -> Callable[..., Any]:
 LIKE_OPS_LIST = [
     aten.empty_like,
     aten.zeros_like,
+    aten.ones_like,
     aten.randn_like,
     aten.new_zeros,
+    aten.new_empty,
+    aten.new_full,
+    aten.new_ones,
 ]
 
 for like_op in LIKE_OPS_LIST:
