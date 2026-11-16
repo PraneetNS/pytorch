@@ -50,7 +50,7 @@ from torch.testing._internal.common_device_type import dtypesIfMPS, instantiate_
     dtypesIfCUDA, precisionOverride, onlyCUDA, onlyCPU, onlyAccelerator, \
     skipCUDAIf, skipCUDAIfMiopen, skipCUDAIfNoCudnn, skipCUDAIfNotRocm, largeMPSBufferTest, skipMPS, \
     onlyNativeDeviceTypes, deviceCountAtLeast, largeTensorTest, expectedFailureMeta, \
-    expectedFailureMPS, skipMeta, get_all_device_types, skipCUDAIfNoSparseGeneric, toleranceOverride, tol
+    expectedFailureMPS, expectedFailureXPU, skipMeta, get_all_device_types, skipCUDAIfNoSparseGeneric, toleranceOverride, tol
 from torch.testing import make_tensor
 from torch.testing._internal.common_modules import module_inputs_torch_nn_LinearCrossEntropyLoss
 
@@ -9822,6 +9822,7 @@ class TestNNDeviceType(NNTestCase):
     @parametrize_test("mode", ["bilinear", "bicubic", "lanczos"])
     @parametrize_test("memory_format", [torch.contiguous_format, torch.channels_last])
     @expectedFailureMPS  # double device type
+    @expectedFailureXPU  # XPU interpolate backward is nondeterministic (atomic add); intel/torch-xpu-ops#6206
     @onlyNativeDeviceTypes
     def test_upsamplingBiMode2d(self, device, antialias, align_corners, mode, memory_format):
         self._test_upsamplingBiMode2d(
