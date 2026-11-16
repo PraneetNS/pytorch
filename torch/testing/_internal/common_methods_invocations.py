@@ -30,7 +30,7 @@ from torch.testing._internal.common_dtype import (
     all_passthru_types_and,
 )
 from torch.testing._internal.common_device_type import (
-    onlyCPU, onlyCUDA, onlyNativeDeviceTypes, onlyOn, onlyAccelerator, disablecuDNN,
+    onlyCPU, onlyCUDA, onlyNativeDeviceTypes, onlyOn, disablecuDNN,
     skipCUDAIfNoCusolver, skipCPUIfNoLapack, skipCPUIfNoFFT, skipCUDAIf, precisionOverride,
     skipCPUIfNoMklSparse, toleranceOverride, tol, skipXPU, e4m3_type, e5m2_type, E4M3_MAX_POS, E5M2_MAX_POS,
 )
@@ -21445,7 +21445,7 @@ DecorateInfo(unittest.skip("Skipped!"), 'TestDecomp', 'test_quick'),
            supports_forward_ad=True,
            supports_fwgrad_bwgrad=True,
            decorators=(
-               DecorateInfo(onlyAccelerator, "TestCommon", 'test_errors'),),
+               DecorateInfo(onlyOn(["cuda", "xpu"]), "TestCommon", 'test_errors'),),
            skips=(
                # lambda impl
                DecorateInfo(unittest.expectedFailure, "TestNormalizeOperators", "test_normalize_operator_exhaustive"),
